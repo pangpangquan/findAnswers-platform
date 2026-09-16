@@ -1,4 +1,4 @@
-import { ConfigProvider, Layout, Menu } from 'antd'
+import { App as AntApp, ConfigProvider, Layout, Menu } from 'antd'
 import zhCN from 'antd/locale/zh_CN'
 import {
   DownloadOutlined,
@@ -30,6 +30,7 @@ export default function App() {
   const selected = '/' + (pathname.split('/')[1] || 'ingest')
   return (
     <ConfigProvider locale={zhCN}>
+      <AntApp>
       <Layout style={{ minHeight: '100vh' }}>
         <Sider>
           <Header style={{ color: '#fff', fontSize: 16, whiteSpace: 'nowrap' }}>面经整理平台</Header>
@@ -49,6 +50,7 @@ export default function App() {
           </Content>
         </Layout>
       </Layout>
+      </AntApp>
     </ConfigProvider>
   )
 }
