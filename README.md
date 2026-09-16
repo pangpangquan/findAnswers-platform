@@ -4,3 +4,14 @@
 
 - 设计文档：`docs/DESIGN.md`
 - 实施计划：`docs/superpowers/plans/`
+
+## Quickstart（后端 P1）
+
+```bash
+cp backend/.env.example backend/.env   # 填 DEEPSEEK_API_KEY
+docker compose up -d --build
+# 上传：POST http://localhost:8000/api/ingest/images (multipart, 字段名 files)
+# 题库：GET http://localhost:8000/api/questions
+# 搜索：GET http://localhost:8000/api/search?q=...
+# 导出：GET http://localhost:8000/api/export?format=md
+```

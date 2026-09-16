@@ -1,0 +1,26 @@
+name: findanswers-platform
+services:
+  postgres:
+    build: ./docker/postgres-zhparser
+    environment:
+      POSTGRES_DB: mianjing
+      POSTGRES_USER: app
+      POSTGRES_PASSWORD: app
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+  backend:
+    build: ./backend
+    env_file: backend/.env
+    environment:
+      DATABASE_URL: postgresql+asyncpg://app:app@postgres:5432/mianjing
+      UPLOAD_DIR: /app/data/images
+    volumes:
+      - ./data:/app/data
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+volumes:
+  pgdata:
