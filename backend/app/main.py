@@ -1,3 +1,4 @@
+import asyncio
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
@@ -18,7 +19,14 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         app.state.settings = settings
         app.state.engine = engine
         app.state.session_factory = make_session_factory(engine)
+        worker = None
+        if settings.enable_worker:
+            from app.services.worker import start_worker_loop
+
+            worker = asyncio.create_task(start_worker_loop(app))
         yield
+        if worker is not None:
+            worker.cancel()
 
     app = FastAPI(title="面经整理平台", lifespan=lifespan)
 

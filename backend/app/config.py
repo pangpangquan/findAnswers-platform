@@ -14,6 +14,7 @@ class Settings(BaseSettings):
     deepseek_model: str = "deepseek-chat"
     llm_max_retries: int = 3
     low_confidence_threshold: float = 0.6
+    enable_worker: bool = True
 
 
 @lru_cache

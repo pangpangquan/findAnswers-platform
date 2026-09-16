@@ -32,7 +32,8 @@ async def _test_database():
 @pytest_asyncio.fixture
 async def app(tmp_path):
     settings = Settings(
-        database_url=TEST_DB_URL, upload_dir=tmp_path / "images", deepseek_api_key="test-key"
+        database_url=TEST_DB_URL, upload_dir=tmp_path / "images", deepseek_api_key="test-key",
+        enable_worker=False
     )
     from app.main import create_app
 
@@ -40,8 +41,12 @@ async def app(tmp_path):
     async with application.router.lifespan_context(application):
         async with application.state.session_factory() as session:
             for table in reversed(Base.metadata.sorted_tables):
-                await session.execute(text(f'TRUNCATE TABLE "{table.name}" CASCADE'))
+                await session.execute(
+                    text(f'TRUNCATE TABLE "{table.name}" RESTART IDENTITY CASCADE')
+                )
+            await session.commit()
         yield application
+        await application.state.engine.dispose()
 
 
 @pytest_asyncio.fixture
