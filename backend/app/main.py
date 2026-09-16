@@ -34,6 +34,8 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     async def health():
         return {"status": "ok"}
 
+    from app.api.ingest import router as ingest_router
+    app.include_router(ingest_router)
     return app
 
 
