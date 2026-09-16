@@ -34,6 +34,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     async def health():
         return {"status": "ok"}
 
+    from app.api.export import router as export_router
     from app.api.ingest import router as ingest_router
     from app.api.questions import router as questions_router
     from app.api.search import router as search_router
@@ -42,6 +43,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     app.include_router(tasks_router)
     app.include_router(questions_router)
     app.include_router(search_router)
+    app.include_router(export_router)
     return app
 
 
