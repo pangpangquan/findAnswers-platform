@@ -5,6 +5,7 @@ from datetime import UTC, datetime
 from sqlalchemy import select
 
 from app.models import IngestTask, Question, SourceImage, SourcePost
+from app.services.queue import claim_next_task
 from app.utils.text import normalize_question_text
 
 logger = logging.getLogger(__name__)
