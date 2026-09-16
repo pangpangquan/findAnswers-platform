@@ -35,9 +35,11 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         return {"status": "ok"}
 
     from app.api.ingest import router as ingest_router
+    from app.api.questions import router as questions_router
     from app.api.tasks import router as tasks_router
     app.include_router(ingest_router)
     app.include_router(tasks_router)
+    app.include_router(questions_router)
     return app
 
 
