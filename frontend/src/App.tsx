@@ -29,7 +29,7 @@ export default function App() {
   const { pathname } = useLocation()
   const selected = '/' + (pathname.split('/')[1] || 'ingest')
   return (
-    <ConfigProvider locale={zhCN}>
+    <ConfigProvider locale={zhCN} button={{ autoInsertSpace: false }}>
       <AntApp>
       <Layout style={{ minHeight: '100vh' }}>
         <Sider>

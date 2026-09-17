@@ -1,3 +1,4 @@
+import type { Paged, Question, QuestionUpdate, SearchItem, TaskItem } from '../types'
 const BASE = '/api'
 
 function qs(params: Record<string, unknown>): string {

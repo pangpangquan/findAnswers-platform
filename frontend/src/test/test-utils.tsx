@@ -1,6 +1,7 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { App as AntApp, ConfigProvider } from 'antd'
+import zhCN from 'antd/locale/zh_CN'
 import { render } from '@testing-library/react'
-import { App as AntApp } from 'antd'
 import type { ReactElement } from 'react'
 import { MemoryRouter } from 'react-router-dom'
 
@@ -9,9 +10,11 @@ export function renderWithProviders(ui: ReactElement, { route = '/' } = {}) {
   return {
     ...render(
       <QueryClientProvider client={queryClient}>
-        <AntApp>
-          <MemoryRouter initialEntries={[route]}>{ui}</MemoryRouter>
-        </AntApp>
+        <ConfigProvider locale={zhCN} button={{ autoInsertSpace: false }}>
+          <AntApp>
+            <MemoryRouter initialEntries={[route]}>{ui}</MemoryRouter>
+          </AntApp>
+        </ConfigProvider>
       </QueryClientProvider>,
     ),
     queryClient,
