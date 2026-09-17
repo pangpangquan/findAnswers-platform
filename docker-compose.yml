@@ -22,5 +22,11 @@ services:
       - "8000:8000"
     depends_on:
       - postgres
+  frontend:
+    build: ./frontend
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
 volumes:
   pgdata:
